@@ -2,8 +2,8 @@ class RetrieveNetworkJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    response = retrieve_citybike_networks
-    parse_response response
+    # response = retrieve_citybike_networks
+    # parse_response response
   end
 
   private 
@@ -15,42 +15,35 @@ class RetrieveNetworkJob < ApplicationJob
   def parse_response response
     code = response.code
     body = response.parsed_response
-    
-    generate_database body["networks"]
-    puts body["networks"].first
+    Rails::logger.debug "hey"
+
+    populate_data networks
   end
 
-  def generate_database citybike_networks, db_name="public/networks.db"
-    db = SQLite3::Database.open db_name
-    db.execute "CREATE TABLE IF NOT EXISTS \
-                networks(id TEXT NOT NULL, \
-                        city TEXT, \
-                        country TEXT, \
-                        latitude DECIMAL(10,6), \
-                        longitude DECIMAL(10,6), \
-                        company_name TEXT, \
-                        name TEXT)"
+  def populate_data networks
+    location = network['location']
 
-    db.execute "CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_id on networks (id)"
-    
-    citybike_networks.each_with_index { |network, idx| 
-      location = network['location']
+    company_data = network['company']
+    company_name = ''
 
-      company_data = network['company']
-      company_name = ''
+    if company_data.kind_of?(Array)
+      company_name = network['company']&.join(', ')
+    elsif company_data.kind_of?(String)
+      company_name = company_data
+    end
 
-      if company_data.kind_of?(Array)
-        company_name = network['company']&.join(', ')
-      elsif company_data.kind_of?(String)
-        company_name = company_data
-      end
-
-      db.execute "INSERT INTO networks \
-                  (id, city, country, latitude, longitude, company_name, name) \
-                  VALUES (?,?,?,?,?,?,?)", 
-                  network['id'],location['city'],location['country'],location['latitude'],
-                  location['longitude'],company_name ,network['name']
+    networks.each { |network|
+      Rails::logger.debug "hey"
+      Rails::logger.debug network["id"]
+      # n = Network.new(city: location['city'],
+      #                company_name: company_name,
+      #                country: location['country'],
+      #                latitude: location['latitude'],
+      #                longitude: location['longitude'],
+      #                name: network.name
+      #               )
+      # n.id = network['id']
     }
-  end  
+  end
 end
 

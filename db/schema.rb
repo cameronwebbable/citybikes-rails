@@ -12,17 +12,4 @@
 
 ActiveRecord::Schema.define(version: 2020_07_02_205811) do
 
-  create_table "networks", force: :cascade do |t|
-    t.string "city"
-    t.string "citybike_id"
-    t.string "company_name"
-    t.string "country"
-    t.decimal "latitude", precision: 10, scale: 6
-    t.decimal "longitude", precision: 10, scale: 6
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["citybike_id"], name: "index_networks_on_citybike_id", unique: true
-  end
-
 end
