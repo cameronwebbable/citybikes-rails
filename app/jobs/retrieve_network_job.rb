@@ -2,18 +2,16 @@ class RetrieveNetworkJob < ApplicationJob
   queue_as :default
 
   def perform(*args)
-    handle_response retrieve_citybike_networks
+    retrieve_citybike_networks
   end
 
   private 
   
   def retrieve_citybike_networks
-    HTTParty.get('http://api.citybik.es/v2/networks')
-  end
-  
-  def handle_response response
-    return unless response.success?
+    response = HTTParty.get('http://api.citybik.es/v2/networks')
     
+    return unless response.success?
+
     parsed_response = response.parsed_response
     
     if parsed_response.key? 'networks'
