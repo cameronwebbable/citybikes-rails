@@ -12,6 +12,8 @@ class RetrieveNetworkJob < ApplicationJob
   end
   
   def handle_response response
+    return unless response.success?
+    
     parsed_response = response.parsed_response
     
     if parsed_response.key? 'networks'
@@ -44,15 +46,14 @@ class RetrieveNetworkJob < ApplicationJob
         name: network['name'] 
       }
     }
-
-    Network.upsert_all(mapped_networks, unique_by: [:id])
+    Network.upsert_all(mapped_networks, unique_by: :id)
   end
 
   def zip_networks_db
     folder = 'db'
     filename = "network_#{Rails.env}.sqlite3"
 
-    zipfile_name = 'public/networks.zip'
+    zipfile_name = "public/networks_#{Rails.env}.zip"
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
       zipfile.add(filename, File.join(folder, filename))
     end
