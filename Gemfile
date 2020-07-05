@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'sidekiq', '~> 5.2.9'
 gem 'httparty', '~> 0.18.1'
+gem 'rubyzip', '~> 2.3.0', require: 'zip'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
