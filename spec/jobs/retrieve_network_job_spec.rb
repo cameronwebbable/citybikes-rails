@@ -17,7 +17,7 @@ RSpec.describe RetrieveNetworkJob, type: :job do
     end
   end
 
-  describe 'perform now' do    
+  describe 'before zipped database exists' do    
     context 'successful network api response' do
       it 'produces what is expected' do
         actual_count = response['networks'].count
@@ -58,7 +58,7 @@ RSpec.describe RetrieveNetworkJob, type: :job do
     end
   end
 
-  describe 'run after zip exists' do
+  describe 'after zip exists' do
     it 'should be able to write to a zip, even if it already exists' do
       expect(zipfile.exist?).to be false
       RetrieveNetworkJob.perform_now

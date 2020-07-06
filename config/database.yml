@@ -15,7 +15,7 @@ development:
 
 networks_development:
   <<: *default
-  database: db/network_development.sqlite3
+  database: db/networks_development.sqlite3
 
 test:
   <<: *default
@@ -23,7 +23,7 @@ test:
 
 networks_test:
   <<: *default
-  database: db/network_test.sqlite3
+  database: db/networks_test.sqlite3
   
 production:
   <<: *default
@@ -31,4 +31,4 @@ production:
 
 networks_production:
   <<: *default
-  database: db/network_production.sqlite3
+  database: db/networks_production.sqlite3

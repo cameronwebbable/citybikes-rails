@@ -1,5 +1,5 @@
 class RetrieveNetworkJob < ApplicationJob
-  queue_as :default
+  queue_as :network
 
   def perform(*args)
     retrieve_citybike_networks
@@ -49,7 +49,7 @@ class RetrieveNetworkJob < ApplicationJob
 
   def zip_networks_db
     folder = 'db'
-    filename = "network_#{Rails.env}.sqlite3"
+    filename = "networks_#{Rails.env}.sqlite3"
 
     zipfile_name = "public/networks_#{Rails.env}.zip"
     Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
