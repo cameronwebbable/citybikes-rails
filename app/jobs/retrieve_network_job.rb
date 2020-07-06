@@ -22,7 +22,6 @@ class RetrieveNetworkJob < ApplicationJob
 
   def load_networks networks
     mapped_networks = networks.map { |network|
-
       location = network['location']
 
       company_data = network['company']
@@ -44,6 +43,7 @@ class RetrieveNetworkJob < ApplicationJob
         name: network['name'] 
       }
     }
+    
     Network.upsert_all(mapped_networks, unique_by: :id)
   end
 

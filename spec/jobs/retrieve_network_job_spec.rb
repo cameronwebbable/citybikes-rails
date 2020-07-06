@@ -4,13 +4,13 @@ RSpec.describe RetrieveNetworkJob, type: :job do
   let(:response) { JSON.parse(File.read('spec/jobs/fixtures/citybikes_response.json'))}
   let(:zipfile) { Pathname.new('public/networks_test.zip') }
   let(:citybike_response) { instance_double(HTTParty::Response, success?: true, parsed_response: response) }
-  before(:each) do
+  before(:each) {
     allow(HTTParty).to receive(:get).and_return(citybike_response)
     remove_zipfile
-  end
-  after(:each) do
-    remove_zipfile
-  end 
+  }
+  after(:each) { remove_zipfile }
+    
+   
   def remove_zipfile
     if zipfile.exist?
       zipfile.delete
