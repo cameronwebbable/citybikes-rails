@@ -12,8 +12,10 @@
 
 ## Running the App
   - `rails s`
-  - This also uses a Sidekiq queue. need to also run `bundle exec sidekiq -q network`
+  - This also uses a Sidekiq queue. need to also run `bundle exec sidekiq -q network`.
+      - If redis is not already running on your machine, you'll need to start it.
     - Note: why 'network' as the name? this queue has the one sole purpose of loading data from api & wanted to label it appropriately. 
+
 
 ## Testing
   - `bundle exec rspec`
