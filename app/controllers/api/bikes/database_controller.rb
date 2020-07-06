@@ -1,7 +1,8 @@
 class Api::Bikes::DatabaseController < Api::ApiController
   def index
     if zip_exists?
-      return send_data zip_path, type: 'application/zip', filename: 'networks.zip'
+      zip_data = File.read(zip_path)
+      return send_data zip_data, type: 'application/zip', filename: 'networks.zip'
     elsif job_running?
       return render json: {}, status: :accepted
     end
