@@ -1,7 +1,4 @@
 require 'rails_helper'
-require 'sidekiq/testing'
-
-Sidekiq::Testing.inline!
 
 RSpec.describe Api::Bikes::DatabaseController, type: :controller do
   describe 'database#index' do
@@ -9,6 +6,7 @@ RSpec.describe Api::Bikes::DatabaseController, type: :controller do
     let(:subject) { Api::Bikes::DatabaseController }
     before(:each) { remove_zipfile }
     after(:each) { remove_zipfile }    
+
     def create_zipfile
       File.write('public/networks_test.zip', '')
     end

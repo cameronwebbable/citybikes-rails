@@ -10,7 +10,6 @@ RSpec.describe RetrieveNetworkJob, type: :job do
   }
   after(:each) { remove_zipfile }
     
-   
   def remove_zipfile
     if zipfile.exist?
       zipfile.delete
