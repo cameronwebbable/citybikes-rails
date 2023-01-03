@@ -11,7 +11,7 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'sidekiq', '~> 5.2.9', require: 'sidekiq/api'
-gem 'httparty', '~> 0.18.1'
+gem 'httparty', '~> 0.21.0'
 gem 'rubyzip', '~> 2.3.0', require: 'zip'
 gem 'bootsnap', '>= 1.4.2', require: false
 
